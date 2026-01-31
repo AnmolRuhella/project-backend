@@ -7,4 +7,4 @@ add the prettier config and nodemon config
 setup the mongoose 
 
 30/01/2026 
-JWT and aggregation we will get to know 
+JWT and aggregation we will get to know in this lecture :

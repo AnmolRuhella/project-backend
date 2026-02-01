@@ -17,18 +17,22 @@ Redirection messages (300- 399)
 Client error responses (400 -499)
 Server error repsosnes (500 - 599)
 
-multer for uploadinfg files we will study
+
 
 started the modals creation on 02/02/2026
 we have multiple middleware given by the mongoose 
 pre post and many more 
 we are using here bcrypt to encrypt passowrd 
-we have two different ways to encrypt the password we can encrypt teh password or we can use hassing 
+we have two different ways to encrypt the password we can encrypt the password or we can use hassing 
 
-Bearer Token (json wenb token)
+Bearer Token (json web token)
 
 methods here we are using it is given by the mongoose schema 
 and the hooks that is also given by the mongoose 
 or we can also create our custom hooks 
+
+02/02/2026- Lecture on Multer
+
+
 
 

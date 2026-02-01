@@ -8,3 +8,5 @@ setup the mongoose
 
 30/01/2026 
 JWT and aggregation we will get to know in this lecture :
+
+multer for uploadinfg files we will study

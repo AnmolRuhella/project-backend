@@ -34,7 +34,7 @@ or we can also create our custom hooks
 02/02/2026- Lecture on Multer
 started the lecture on 03/02/2026 
 just started the HTTPS crash course lecture and method on 03/02/2026
-Started the lecture on route and controller
+Started the lecture on route and controller on 05/02/2027
 
 
 

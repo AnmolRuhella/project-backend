@@ -36,6 +36,7 @@ started the lecture on 03/02/2026
 just started the HTTPS crash course lecture and method on 03/02/2026
 Started the lecture on route and controller on 05/02/2027 
 got to know that first user hits the routes then controller and then hits the validation thats create the entry in the db.
+start the lecture on 08/02/2026
 
 
 

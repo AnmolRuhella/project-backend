@@ -39,7 +39,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      require: [true, "Password is required "],
+      required : [true, "Password is required "],
     },
     refreshToken: {
       type: String,
@@ -68,7 +68,7 @@ userSchema.methods.generateAccessToken = function () { // function to create the
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiredIn: process.env.ACCESS_TOKEN_EXPIRY,
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
   );
 };
@@ -79,7 +79,7 @@ userSchema.methods.generateRefreshToken = function () { // function to create th
     },
     process.env.REFRESH_TOKEN_SECRET,
     {
-      expiredIn: process.env.REFRESH_TOKEN_EXPIRY,
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
     }
   );
 };

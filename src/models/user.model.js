@@ -51,7 +51,7 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) return next();
   // here we are checking if password is modified then only encrypt the password and save it into the db .
-  this.password = bcrypt.hash(this.password, 10); // 10 signify here is the round how can round of algo we want to run
+  this.password = await bcrypt.hash(this.password, 10); // 10 signify here is the round how can round of algo we want to run
   next();
 });
 userSchema.methods.isPasswordCorrect = async function (password) {

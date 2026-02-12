@@ -40,7 +40,7 @@ start the lecture on 09/02/2026
 just started it and learn about how to create the modules and all 
 created the user model
 
-just started the lecture on user model and continue 
+writing the register model logice on 12/02/2026
 
 
 

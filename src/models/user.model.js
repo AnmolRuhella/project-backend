@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
   {
@@ -31,7 +32,6 @@ const userSchema = new Schema(
     },
     coverImage: {
       type: String, // cloudinary url
-      required: true,
     },
     watchHistory: {
       type: Schema.Types.ObjectId,
@@ -48,11 +48,10 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
   // here we are checking if password is modified then only encrypt the password and save it into the db .
   this.password = await bcrypt.hash(this.password, 10); // 10 signify here is the round how can round of algo we want to run
-  next();
 });
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password); // it will compare the encrypt password and provide password by the user in string

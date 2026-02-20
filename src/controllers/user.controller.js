@@ -97,7 +97,7 @@ const loginUser = asyncHandler(async (req, res) => {
   //send cookies
 
   const { username, email, password } = req.body;
-  if (!username || !email) {
+  if (!username &&  !email) {
     throw new ApiError(400, "username or email is required ");
   }
 
@@ -106,15 +106,13 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User does not exist");
   }
 
-  const isPasswordValid = await user.isPssswordCorrect(password);
+  const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid user credentials ");
   }
 
-  const { refershToken, accessToken } = await generateAccessandRefreshTokens(
-    user._id
-  );
+  const { refershToken, accessToken } = await generateAccessandRefreshTokens(user._id);
 
   const loggedInUser = await User.findById(user._id).select(
     "-password -refreshToken"
@@ -127,8 +125,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .cookie("accessToken ", accessToken, options)
-    .cookie("refershToken ", refershToken, options)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refershToken, options)
     .json(
       new ApiResponse(
         200,

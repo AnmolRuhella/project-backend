@@ -169,49 +169,73 @@ const logoutUser = asyncHandler(async (req, res) => {
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-  const incomingRefreshToken = req.cookies.refershToken || req.body.refershToken;
+  const incomingRefreshToken =
+    req.cookies.refershToken || req.body.refershToken;
 
   if (!incomingRefreshToken) {
     throw new ApiError(401, "Aunautorised request");
   }
- try {
-   const decodedToken = jwt.verify(
-     incomingRefreshToken,
-     process.env.REFRESH_TOKEN_SECRET
-   );
- 
-   const user = await User.findById(decodedToken?._id);
-   if (!user) {
-     throw new ApiError(401, "Invalid Refresh token");
-   }
-   if(incomingRefreshToken !== user?.refershToken){
-        throw new ApiError(401, "Refresh token is expired or used");
- 
-   }
- const options ={
-   httpOnly: true,
-   secure: true 
- }
-   const {accessToken, newrefershToken } = await generateAccessandRefreshTokens(user._id);
-   return res
-     .status(200)
-     .cookie("accessToken", accessToken, options)
-     .cookie("refreshToken", newrefershToken, options)
-     .json(
-       new ApiResponse(
-         200,
-         {
-           accessToken,
-           refershToken : newrefershToken,
-         },
-         "Access Token Refresh successfuly"
-       )
-     );
- } catch (error) {
-  throw new ApiError(401 ,error?.message ||  "Invalid refresh token ")
-  
- }
-  
+  try {
+    const decodedToken = jwt.verify(
+      incomingRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET
+    );
+
+    const user = await User.findById(decodedToken?._id);
+    if (!user) {
+      throw new ApiError(401, "Invalid Refresh token");
+    }
+    if (incomingRefreshToken !== user?.refershToken) {
+      throw new ApiError(401, "Refresh token is expired or used");
+    }
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    const { accessToken, newrefershToken } =
+      await generateAccessandRefreshTokens(user._id);
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", newrefershToken, options)
+      .json(
+        new ApiResponse(
+          200,
+          {
+            accessToken,
+            refershToken: newrefershToken,
+          },
+          "Access Token Refresh successfuly"
+        )
+      );
+  } catch (error) {
+    throw new ApiError(401, error?.message || "Invalid refresh token ");
+  }
 });
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken};
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const user = await User.findById(req.user?._id);
+
+  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+
+  if (!isPasswordCorrect) {
+    throw new ApiError(400, "Invalid Password ");
+  }
+
+  user.password = newPassword;
+  await user.Save({ ValidateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Password changed successfully"));
+});
+
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  changeCurrentPassword,
+};

@@ -1,0 +1,1 @@
+just started the lecture of subscription scheama 

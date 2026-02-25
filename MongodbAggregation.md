@@ -7,3 +7,5 @@ for left outer join we are using the Lookup :{
     as : result 
 
 }
+there are multiple aggregation function that is group , project , in , lookup and many more .
+we can take a reference from the mongo db documentation ;

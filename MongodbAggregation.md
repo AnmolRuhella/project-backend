@@ -8,4 +8,4 @@ for left outer join we are using the Lookup :{
 
 }
 there are multiple aggregation function that is group , project , in , lookup and many more .
-we can take a reference from the mongo db documentation ;
+we can take a reference from the mongo db documentation.

@@ -41,7 +41,7 @@ just started it and learn about how to create the modules and all
 created the user model
 
 writing the register model logice on 12/02/2026
-
+coming back on subscription schema 
 
 
 
